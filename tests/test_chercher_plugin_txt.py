@@ -7,7 +7,6 @@ CONTENT = "Hello, world"
 def test_valid_file(tmp_path):
     p = tmp_path / "test.txt"
     p.write_text(CONTENT)
-    assert p.read_text() == CONTENT
 
     uri = p.as_uri()
     documents = ingest(uri=uri)
@@ -15,3 +14,24 @@ def test_valid_file(tmp_path):
         assert isinstance(doc, Document)
         assert doc.uri == uri
         assert doc.body == CONTENT
+
+
+def test_invalid_file(tmp_path):
+    p = tmp_path / "test.md"
+    p.write_text(CONTENT)
+
+    uri = p.as_uri()
+    documents = ingest(uri=uri)
+    assert list(documents) == []
+
+
+def test_missing_file(tmp_path):
+    p = tmp_path / "missingno.txt"
+    documents = ingest(uri=p.as_uri())
+    assert list(documents) == []
+
+
+def test_invalid_uri():
+    uri = "https://files/file.txt"
+    documents = ingest(uri=uri)
+    assert list(documents) == []
