@@ -14,6 +14,7 @@ def test_valid_file(tmp_path):
         assert isinstance(doc, Document)
         assert doc.uri == uri
         assert doc.body == CONTENT
+        assert doc.hash is not None
 
 
 def test_invalid_file(tmp_path):

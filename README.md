@@ -1,6 +1,6 @@
 # chercher-plugin-txt
 
-[Chercher](https://github.com/dnlzrgz/chercher) plugin that add support for plain text files.
+[Chercher](https://github.com/dnlzrgz/chercher) plugin that adds support for plain text files.
 
 ## Installation
 
