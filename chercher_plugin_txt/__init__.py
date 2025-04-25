@@ -16,6 +16,7 @@ def ingest(uri: str) -> Generator[Document, None, None]:
 
     yield Document(
         uri=path.as_uri(),
+        title=path.stem,
         body=content.decode("utf-8"),
         hash=digest.hexdigest(),
         metadata={},

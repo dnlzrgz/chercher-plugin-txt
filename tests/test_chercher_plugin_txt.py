@@ -13,6 +13,7 @@ def test_valid_file(tmp_path):
     for doc in documents:
         assert isinstance(doc, Document)
         assert doc.uri == uri
+        assert doc.title == uri.stem
         assert doc.body == CONTENT
         assert doc.hash is not None
 

@@ -1,13 +1,13 @@
 [project]
 name = "chercher-plugin-txt"
-version = "0.1.2"
+version = "0.1.3"
 description = "Chercher plugin that adds support for plain text files."
 readme = "README.md"
 authors = [{ name = "dnlzrgz", email = "contact@dnlzrgz.com" }]
 license = "MIT"
 classifiers = []
 requires-python = ">=3.13"
-dependencies = ["chercher>=0.1.14"]
+dependencies = ["chercher>=0.1.17"]
 
 
 [project.urls]
