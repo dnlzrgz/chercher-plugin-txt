@@ -9,11 +9,12 @@ def test_valid_file(tmp_path):
     p.write_text(CONTENT)
 
     uri = p.as_uri()
-    documents = ingest(uri=uri)
+    documents = list(ingest(uri=uri))
+    assert len(documents) == 1
     for doc in documents:
         assert isinstance(doc, Document)
         assert doc.uri == uri
-        assert doc.title == uri.stem
+        assert doc.title == p.stem
         assert doc.body == CONTENT
         assert doc.hash is not None
 
@@ -23,17 +24,17 @@ def test_invalid_file(tmp_path):
     p.write_text(CONTENT)
 
     uri = p.as_uri()
-    documents = ingest(uri=uri)
-    assert list(documents) == []
+    documents = list(ingest(uri=uri))
+    assert documents == []
 
 
 def test_missing_file(tmp_path):
     p = tmp_path / "missingno.txt"
-    documents = ingest(uri=p.as_uri())
-    assert list(documents) == []
+    documents = list(ingest(uri=p.as_uri()))
+    assert documents == []
 
 
 def test_invalid_uri():
     uri = "https://files/file.txt"
-    documents = ingest(uri=uri)
-    assert list(documents) == []
+    documents = list(ingest(uri=uri))
+    assert documents == []

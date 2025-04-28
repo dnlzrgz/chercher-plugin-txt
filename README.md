@@ -4,8 +4,9 @@
 
 ## Installation
 
-> [!NOTE]
-> This plugin is included with Chercher by default, so no additional installation is necessary
+```bash
+uv tool install --with chercher-plugin-txt chercher
+```
 
 ## Settings
 
