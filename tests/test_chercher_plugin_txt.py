@@ -4,7 +4,7 @@ from chercher import Document
 CONTENT = "Hello, world"
 
 
-def test_valid_file(tmp_path):
+def test_valid_file_with_file_uri(tmp_path):
     p = tmp_path / "test.txt"
     p.write_text(CONTENT)
 
@@ -14,6 +14,21 @@ def test_valid_file(tmp_path):
     for doc in documents:
         assert isinstance(doc, Document)
         assert doc.uri == uri
+        assert doc.title == p.stem
+        assert doc.body == CONTENT
+        assert doc.hash is not None
+
+
+def test_valid_file_with_relative_uri(tmp_path):
+    p = tmp_path / "test.txt"
+    p.write_text(CONTENT)
+
+    uri = p.as_posix()
+    documents = list(ingest(uri=uri))
+    assert len(documents) == 1
+    for doc in documents:
+        assert isinstance(doc, Document)
+        assert doc.uri == p.as_uri()
         assert doc.title == p.stem
         assert doc.body == CONTENT
         assert doc.hash is not None
