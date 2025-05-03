@@ -14,7 +14,7 @@ def test_ingest_valid_file_with_file_uri(tmp_path):
     for doc in documents:
         assert isinstance(doc, Document)
         assert doc.uri == uri
-        assert doc.title == p.stem
+        assert doc.title == p.name
         assert doc.body == CONTENT
         assert doc.hash is not None
 
@@ -29,7 +29,7 @@ def test_ingest_valid_file_with_relative_uri(tmp_path):
     for doc in documents:
         assert isinstance(doc, Document)
         assert doc.uri == p.as_uri()
-        assert doc.title == p.stem
+        assert doc.title == p.name
         assert doc.body == CONTENT
         assert doc.hash is not None
 

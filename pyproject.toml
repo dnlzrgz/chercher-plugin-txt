@@ -1,6 +1,6 @@
 [project]
 name = "chercher-plugin-txt"
-version = "0.1.7"
+version = "0.1.8"
 description = "Chercher plugin that adds support for plain text files."
 readme = "README.md"
 authors = [{ name = "dnlzrgz", email = "contact@dnlzrgz.com" }]

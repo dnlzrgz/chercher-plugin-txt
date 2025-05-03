@@ -22,10 +22,11 @@ def ingest(uri: str) -> Generator[Document, None, None]:
     with path.open("rb") as f:
         content = f.read()
         hash = hashlib.sha256(content)
+        print(path.stat())
 
     yield Document(
         uri=path.as_uri(),
-        title=path.stem,
+        title=path.name,
         body=content.decode("utf-8"),
         hash=hash.hexdigest(),
         metadata={},
