@@ -1,10 +1,10 @@
-from chercher_plugin_txt import ingest
+from chercher_plugin_txt import ingest, prune
 from chercher import Document
 
 CONTENT = "Hello, world"
 
 
-def test_valid_file_with_file_uri(tmp_path):
+def test_ingest_valid_file_with_file_uri(tmp_path):
     p = tmp_path / "test.txt"
     p.write_text(CONTENT)
 
@@ -19,7 +19,7 @@ def test_valid_file_with_file_uri(tmp_path):
         assert doc.hash is not None
 
 
-def test_valid_file_with_relative_uri(tmp_path):
+def test_ingest_valid_file_with_relative_uri(tmp_path):
     p = tmp_path / "test.txt"
     p.write_text(CONTENT)
 
@@ -34,7 +34,7 @@ def test_valid_file_with_relative_uri(tmp_path):
         assert doc.hash is not None
 
 
-def test_invalid_file(tmp_path):
+def test_ingest_invalid_file(tmp_path):
     p = tmp_path / "test.md"
     p.write_text(CONTENT)
 
@@ -43,13 +43,32 @@ def test_invalid_file(tmp_path):
     assert documents == []
 
 
-def test_missing_file(tmp_path):
+def test_ingest_missing_file(tmp_path):
     p = tmp_path / "missingno.txt"
     documents = list(ingest(uri=p.as_uri()))
     assert documents == []
 
 
-def test_invalid_uri():
+def test_ingest_invalid_uri():
     uri = "https://files/file.txt"
     documents = list(ingest(uri=uri))
     assert documents == []
+
+
+def test_prune_valid_file(tmp_path):
+    p = tmp_path / "test.txt"
+    p.write_text(CONTENT)
+
+    uri = p.as_uri()
+    assert prune(uri=uri) is None
+
+
+def test_prune_missing_file(tmp_path):
+    p = tmp_path / "missingno.txt"
+    uri = p.as_uri()
+    assert prune(uri=uri)
+
+
+def test_prune_invalid_uri():
+    uri = "https://files/file.txt"
+    assert prune(uri=uri) is None
